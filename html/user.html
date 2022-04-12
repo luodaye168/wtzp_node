@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <!-- <script src="./js/axios.min.js"></script> -->
+    <!-- <script type="module" src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+</head>
+
+<body>
+    <div class="box">
+        <h1>登录</h1>
+        <div class="form">
+            <div class="item">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input type="text" id="username" placeholder="输入用户名">
+            </div>
+            <div class="item">
+                <i class="fa fa-key" aria-hidden="true"></i>
+                <input type="password" id="password" placeholder="输入你的密码">
+            </div>
+        </div>
+        <button onclick="login()">登录</button>
+    </div>
+    <script>
+
+
+
+        // import Axios from 'axios'
+        // // interceptors -> axios 请求拦截，给所有接口的headers添加token（登录除外）
+        // Axios.interceptors.request.use(config => {
+        //     console.log(config);
+        //     config.headers.Authorization = token
+        //     return config;
+        // })
+
+        var username = document.getElementById('username')
+        var password = document.getElementById('password')
+        username.value = 'admin123'
+        password.value = '000000'
+
+        function login() {
+            // axios.post('http://127.0.0.1:3007/my/userinfo', {
+            axios.post('http://127.0.0.1:3007/api/login', {
+
+                username: username.value,
+                password: password.value,
+            })
+                .then(function (response) {
+                    console.log(response.data.token);
+                    if (response.data.token) {
+                        window.location.href = "./vuedemo01.html"
+                    }
+                    else{
+                        alert('账号或密码错误')
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    /my/device
+    user_id 必须
+    get
+    返回示例：
+    [
+        {
+            id: 1,
+            user_id: 50, //index
+            owner_id: 50,
+            device_id: "698798850",
+            device_name: "测试设备1号",
+            api_key: "Jv9=4GlC9mUikaJQgKt5HQl3qzc=",
+            img_src: "/images/device/260.png",
+        },
+        {
+            id: 2,
+            user_id: 50, //index
+            owner_id: 50,
+            device_id: "698798850",
+            device_name: "测试设备2号",
+            api_key: "NpJZqIWprs7J9OJmPbLb1XKD26c=",
+            img_src: "/images/device/32.png",
+
+        },
+    ]
+
+
+
+
+    /my/switch
+    device_id 必须
+    get
+    返回示例；
+    [
+        {
+            id: 1,
+            device_id: "698798850",
+            high_low: 1,
+            on_key: 11,
+            off_key: 10,
+            stream_name: "velue_wind2",
+            switch_name: "加湿器循环扇",
+        },
+        {
+            id: 2,
+            device_id: "698798850",
+            high_low: 1,
+            on_key: 21,
+            off_key: 20,
+            stream_name: "velue_wind1",
+            switch_name: "排气扇",
+        },
+    ]
+
+
+
+    /my/sensor
+    device_id 必须
+    get
+    返回示例：
+    [
+        {
+            id: 1,
+            device_id: "698798850",
+            stream_name: "temp",
+            sensor_name: "温度",
+            unit: "℃",
+            img_src: "/images/wendu.png",
+        },
+        {
+            id: 2,
+            device_id: "698798850",
+            stream_name: "humi",
+            sensor_name: "湿度",
+            unit: "%",
+            pic_path: "/images/sensor/shidu.png",
+        },
+    ]
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+    </div>
+
+    <DIV id="app-3">
+        <p v-if="seen">你好</p>
+    </DIV>
+
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">Add a todo</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="E.g. Feed the cat">
+            <button>Add</button>
+        </form>
+        <ul>
+            <li is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title"
+                v-on:remove="todos.splice(index, 1)"></li>
+        </ul>
+    </div>
+    <div id="example-4">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <div id="example-5">
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <div id="example-3">
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+
+    <div id="example-2">
+        <input v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p>
+    </div>
+
+    <div id="example-1">
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <div id="app-4"> <blog-post post-title="hello5!"></blog-post>
+</div>
+    <script>
+
+        Vue.component('blog-post', {
+            // 在 JavaScript 中是 camelCase 的
+            props: ['postTitle'],
+            template: '<h3>{{ postTitle }}</h3>'
+        })
+        new Vue({el:'#app-4'})
+
+        new Vue({
+            el: '#example-1',
+            data: {
+                selected: 'A',
+                options: [
+                    { text: 'One', value: 'A' },
+                    { text: 'Two', value: 'B' },
+                    { text: 'Three', value: 'C' }
+                ]
+            }
+        })
+
+        new Vue({
+            el: '#example-2',
+            data: {
+                message: ''
+            }
+        })
+
+        new Vue({
+            el: '#example-3',
+            data: {
+                checkedNames: []
+            }
+        })
+
+        new Vue({
+            el: '#example-5',
+            data: {
+                selected: ''
+            }
+        })
+
+        new Vue({
+            el: '#example-4',
+            data: {
+                picked: ''
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello Vue'
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app-2',
+            data: {
+                message: '页面加载于 ' + Date().toLocaleString()
+            }
+        })
+
+        var app3 = new Vue({
+            el: '#app-3',
+            data: {
+                seen: true
+            }
+        })
+
+        Vue.component('todo-item', {
+            template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">Remove</button>\
+    </li>\
+  ',
+            props: ['title']
+        })
+
+        new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
