@@ -6,6 +6,13 @@ const app = express()
 const cors = require('cors')
 // 将 cors 注册为全局中间件
 app.use(cors())
+app.all('/login', (request, response) => {
+  //允许跨域
+  response.setHeader('Access-Control-Allow-Origin', '*')
+  response.setHeader('Access-Control-Allow-Headers', '*');
+  response.send('Hello')
+})
+
 //joi数据验证
 const joi = require('joi')
 
@@ -13,9 +20,9 @@ const joi = require('joi')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 //报错或返回函数res.cc()中间件
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   console.log(req.body)
-  res.cc = function(err,status = 1){
+  res.cc = function (err, status = 1) {
     res.send({
       status,
       message: err instanceof Error ? err.message : err,
@@ -28,18 +35,18 @@ const expiresJWT = require('express-jwt')
 //全局配置
 const config = require('./config')
 //url除了带有api的都要验证token
-app.use(expiresJWT({secret:config.jwtSecretKey}).unless({path:[/^\/api/]}))
+app.use(expiresJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api/] }))
 //登录注册接口
 const userRouter = require('./router/user')
-app.use('/api',userRouter)
+app.use('/api', userRouter)
 //带权限的接口
 const userinfoRouter = require('./router/userinfo')
-app.use('/my',userinfoRouter)
+app.use('/my', userinfoRouter)
 
 
-app.use((err,req,res,next)=>{
-  if(err instanceof joi.ValidationError) return res.cc(err)
-  if(err.name === 'UnauthorizedError') return res.cc('身份认证失败,token无效')
+app.use((err, req, res, next) => {
+  if (err instanceof joi.ValidationError) return res.cc(err)
+  if (err.name === 'UnauthorizedError') return res.cc('身份认证失败,token无效')
   res.cc(err)
 })
 
