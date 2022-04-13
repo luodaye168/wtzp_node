@@ -13,9 +13,9 @@ app.all('*', (req, res) => {
   res.header('Access-Control-Allow-Methods', '*');
   res.header('X-Powered-By','3.2.1')
   res.header('Content-Type','application/json;charset=utf-8')
-  next()
+  next();
 })
-
+ 
 //joi数据验证
 const joi = require('joi')
 
