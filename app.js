@@ -6,11 +6,14 @@ const app = express()
 const cors = require('cors')
 // 将 cors 注册为全局中间件
 app.use(cors())
-app.all('/login', (request, response) => {
+app.all('*', (req, res) => {
   //允许跨域
-  response.setHeader('Access-Control-Allow-Origin', '*')
-  response.setHeader('Access-Control-Allow-Headers', '*');
-  response.send('Hello')
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('X-Powered-By','3.2.1')
+  res.header('Content-Type','application/json;charset=utf-8')
+  next()
 })
 
 //joi数据验证
